@@ -10,6 +10,7 @@ import { HomePage } from '../pages/HomePage'
 import { InitiativesPage } from '../pages/InitiativesPage'
 import { JournalPage } from '../pages/JournalPage'
 import { MexihcPage } from '../pages/MexihcPage'
+import { fromLocation, siteOrigin, toHref } from '../lib/url'
 
 const pages = [
   {
@@ -50,8 +51,7 @@ const pages = [
 ] as const
 
 function normalize(pathname: string) {
-  if (pathname.length > 1 && pathname.endsWith('/')) return pathname.slice(0, -1)
-  return pathname
+  return fromLocation(pathname)
 }
 
 export function App() {
@@ -69,7 +69,7 @@ export function App() {
     const description =
       match?.description ??
       'Asociación Mexicana de Interacción Humano-Computadora.'
-    const url = `https://amexihc.org${path === '/' ? '/' : path}`
+    const url = `${siteOrigin}${path === '/' ? '/' : path}`
     document.title = title
     document.querySelector('meta[name="description"]')?.setAttribute('content', description)
     document.querySelector('link[rel="canonical"]')?.setAttribute('href', url)
@@ -92,7 +92,7 @@ export function App() {
               <Stack className="measure" direction="vertical" gap={3}>
                 <Heading level={1}>Esta página no existe.</Heading>
                 <Text color="secondary">La dirección no corresponde a una sección de AMexIHC.</Text>
-                <LearnMore href="/">Volver al inicio</LearnMore>
+                <LearnMore href={toHref('/')}>Volver al inicio</LearnMore>
               </Stack>
             </Section>
           )}

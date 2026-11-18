@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { LucideChevronLeft } from '../icons/icons'
+import { toHref } from '../../lib/url'
 
 const rootItems = [
   { label: 'Acerca de', href: '/' },
@@ -66,7 +67,7 @@ export function AppleMenu({
               <a
                 key={item.href}
                 className="apple-link"
-                href={item.href}
+                href={toHref(item.href)}
                 aria-current={path === item.href ? 'page' : undefined}
               >
                 {item.label}
@@ -80,7 +81,7 @@ export function AppleMenu({
         </section>
         <section className="t-page apple-menu-list" data-page-id="2">
           {initiativeLinks.map((item) => (
-            <a key={item.href} className="apple-link" href={item.href} aria-current={path === item.href ? 'page' : undefined}>
+            <a key={item.href} className="apple-link" href={toHref(item.href)} aria-current={path === item.href ? 'page' : undefined}>
               {item.label}
             </a>
           ))}

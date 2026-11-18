@@ -9,6 +9,7 @@ import { TopNav, TopNavHeading } from '@astryxdesign/core/TopNav'
 import { LucideFacebook, LucideMenu, LucideX, SimpleIconsX } from '../icons/icons'
 import { AppleMenu } from './AppleMenu'
 import { NavTabs } from './NavTabs'
+import { toHref } from '../../lib/url'
 
 export function SiteFrame({
   path,
@@ -37,7 +38,7 @@ export function SiteFrame({
               logo={
                 <img
                   className="brand-logo"
-                  src="/brand/logo.svg"
+                  src={`${import.meta.env.BASE_URL}brand/logo.svg`}
                   alt=""
                   width={120}
                   height={28}
@@ -45,7 +46,7 @@ export function SiteFrame({
                 />
               }
               logoLabel="AMexIHC"
-              headingHref="/"
+              headingHref={toHref('/')}
             />
           }
           centerContent={<NavTabs path={path} onNavigate={onNavigate} />}
@@ -84,14 +85,14 @@ export function SiteFrame({
           <Grid columns={{ minWidth: 200, repeat: 'fit' }} gap={5}>
             <Stack direction="vertical" gap={2}>
               <Text weight="semibold">AMexIHC</Text>
-              <Link href="/">Acerca de</Link>
-              <Link href="/mesa-directiva">Consejo directivo</Link>
-              <Link href="/nuestras-iniciativas">Iniciativas</Link>
+              <Link href={toHref('/')}>Acerca de</Link>
+              <Link href={toHref('/mesa-directiva')}>Consejo directivo</Link>
+              <Link href={toHref('/nuestras-iniciativas')}>Iniciativas</Link>
             </Stack>
             <Stack direction="vertical" gap={2}>
               <Text weight="semibold">Iniciativas</Text>
-              <Link href="/mexihc">Congreso MexIHC</Link>
-              <Link href="/revista-aihc">Revista AIHC</Link>
+              <Link href={toHref('/mexihc')}>Congreso MexIHC</Link>
+              <Link href={toHref('/revista-aihc')}>Revista AIHC</Link>
               <Link href="http://www.mexihc.org" isExternalLink>
                 mexihc.org
               </Link>

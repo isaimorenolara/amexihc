@@ -30,21 +30,18 @@ npm run build
 npm run preview
 ```
 
-## Vercel
+## GitHub Pages
 
-El proyecto es una aplicación de una sola página. `vercel.json` reenvía las rutas (`/mesa-directiva`, `/mexihc` y el resto) a `index.html`.
+El sitio se publica en [isaimorenolara.github.io/amexihc](https://isaimorenolara.github.io/amexihc/). El workflow de GitHub Actions construye con la base `/amexihc/` y copia `index.html` a `404.html` para que las rutas del cliente sigan funcionando al recargar.
 
-En Vercel, importa este repositorio con la configuración que detecta Vite:
-
-- Build command: `npm run build`
-- Output directory: `dist`
+En local, `npm run dev` sigue sirviendo la raíz `/`.
 
 ## Estructura
 
 ```text
 amexihc-web
 ├── index.html
-├── vercel.json
+├── .github/workflows/pages.yml
 ├── public
 │   ├── robots.txt
 │   ├── sitemap.xml
@@ -61,6 +58,8 @@ amexihc-web
     │   └── App.tsx
     ├── content
     │   └── site.ts
+    ├── lib
+    │   └── url.ts
     ├── theme
     │   └── apple.ts
     ├── pages

@@ -9,6 +9,7 @@ import { LucideBookOpen, LucideCalendar, LucideGlobe, LucideUsers } from '../com
 import { MemberList } from '../components/layout/MemberList'
 import { LearnMore } from '../components/motion/LearnMore'
 import { Reveal } from '../components/motion/Reveal'
+import { toHref } from '../lib/url'
 
 export function HomePage() {
   return (
@@ -30,8 +31,8 @@ export function HomePage() {
               wrap="wrap"
               hAlign="center"
             >
-              <Button label="Congreso MexIHC" variant="primary" href="/mexihc" />
-              <LearnMore href="/nuestras-iniciativas">Ver iniciativas</LearnMore>
+              <Button label="Congreso MexIHC" variant="primary" href={toHref('/mexihc')} />
+              <LearnMore href={toHref('/nuestras-iniciativas')}>Ver iniciativas</LearnMore>
             </Stack>
           </Reveal>
         </div>
@@ -48,7 +49,7 @@ export function HomePage() {
             bienal donde la comunidad presenta artículos arbitrados, trabajos en progreso, talleres
             y conferencias magistrales.
           </Text>
-          <LearnMore href="/mexihc">Conocer el congreso</LearnMore>
+          <LearnMore href={toHref('/mexihc')}>Conocer el congreso</LearnMore>
         </Stack>
       </Section>
 
@@ -62,7 +63,7 @@ export function HomePage() {
             Revista científica de acceso abierto, publicada cada año desde 2016. ISSN electrónico
             2594-2352.
           </Text>
-          <LearnMore href="/revista-aihc">Leer sobre la revista</LearnMore>
+          <LearnMore href={toHref('/revista-aihc')}>Leer sobre la revista</LearnMore>
         </Stack>
       </Section>
 
@@ -91,7 +92,7 @@ export function HomePage() {
             Instituto Tecnológico de Sonora y Dalhousie University.
           </Text>
           <MemberList members={currentBoard.members} />
-          <LearnMore href="/mesa-directiva">Ver las mesas anteriores</LearnMore>
+          <LearnMore href={toHref('/mesa-directiva')}>Ver las mesas anteriores</LearnMore>
         </Stack>
       </Section>
     </>

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://amexihc.org/sitemap.xml
+Sitemap: https://isaimorenolara.github.io/amexihc/sitemap.xml

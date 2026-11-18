@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import { nav } from '../../content/site'
+import { toHref } from '../../lib/url'
 
 export function NavTabs({
   path,
@@ -53,7 +54,7 @@ export function NavTabs({
           key={item.href}
           className="t-tab"
           role="tab"
-          href={item.href}
+          href={toHref(item.href)}
           aria-selected={itemIndex === index}
           ref={(node) => {
             tabRefs.current[itemIndex] = node
@@ -62,7 +63,7 @@ export function NavTabs({
             if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return
             event.preventDefault()
             if (item.href === path) return
-            window.history.pushState(null, '', item.href)
+            window.history.pushState(null, '', toHref(item.href))
             window.scrollTo(0, 0)
             onNavigate(item.href)
           }}

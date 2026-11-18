@@ -4,6 +4,7 @@ import { Stack } from '@astryxdesign/core/Stack'
 import { Text } from '@astryxdesign/core/Text'
 import { LearnMore } from '../components/motion/LearnMore'
 import { Reveal } from '../components/motion/Reveal'
+import { toHref } from '../lib/url'
 
 export function InitiativesPage() {
   return (
@@ -31,7 +32,7 @@ export function InitiativesPage() {
             la identidad de la IHC en México y la conecta con la comunidad internacional, en
             coordinación con el capítulo CHI México de ACM SIGCHI.
           </Text>
-          <LearnMore href="/mexihc">Ir al congreso</LearnMore>
+          <LearnMore href={toHref('/mexihc')}>Ir al congreso</LearnMore>
         </Stack>
       </Section>
       <Section paddingBlock={8} paddingInline={4}>
@@ -42,7 +43,7 @@ export function InitiativesPage() {
             innovación tecnológica centrada en las personas y sostiene un espacio de colaboración
             que posiciona a México en la interacción humano-computadora.
           </Text>
-          <LearnMore href="/revista-aihc">Ir a la revista</LearnMore>
+          <LearnMore href={toHref('/revista-aihc')}>Ir a la revista</LearnMore>
         </Stack>
       </Section>
     </>
