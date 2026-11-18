@@ -1,0 +1,44 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Build and local caches
+*.tsbuildinfo
+.eslintcache
+coverage
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Agent tooling. These stay on the machine and are not part of the site.
+.agents/
+.claude/
+.cursor/
+AGENTS.md
+GEMINI.md
+skills-lock.json
+translations/
+transitions/

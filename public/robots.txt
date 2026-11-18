@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://amexihc.org/sitemap.xml

@@ -1,0 +1,331 @@
+:root {
+  --stagger-dur: 500ms;
+  --stagger-distance: 12px;
+  --stagger-stagger: 40ms;
+  --stagger-blur: 3px;
+  --stagger-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --learn-shift: 2px;
+  --learn-spread: 8deg;
+  --learn-in: 350ms;
+  --learn-out: 350ms;
+  --learn-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --tabs-dur: 250ms;
+  --tabs-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --tabs-text-muted: var(--color-text-secondary);
+  --tabs-text-active: var(--color-text-primary);
+  --tabs-bar-bg: var(--color-background-muted);
+  --tabs-pill-bg: light-dark(#ffffff, #2c2c2e);
+
+  --panel-open-dur: 400ms;
+  --panel-close-dur: 350ms;
+  --panel-translate-y: 12px;
+  --panel-blur: 2px;
+  --panel-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --page-slide-dur: 250ms;
+  --page-fade-dur: 250ms;
+  --page-slide-distance: 8px;
+  --page-blur: 3px;
+  --page-stagger: 0ms;
+  --page-exit-enabled: 1;
+  --page-slide-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --page-fade-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --icon-swap-dur: 250ms;
+  --icon-swap-blur: 2px;
+  --icon-swap-start-scale: 0.25;
+  --icon-swap-ease: ease-in-out;
+}
+
+html,
+body,
+#root {
+  background: var(--color-background-body);
+}
+
+html {
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.brand-logo {
+  display: block;
+  height: 1.75rem;
+  width: auto;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.measure {
+  width: min(100%, 68rem);
+  margin-inline: auto;
+}
+
+.hero-copy {
+  width: min(100%, 46rem);
+  margin-inline: auto;
+  text-align: center;
+}
+
+.t-stagger-line.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem 2rem;
+  margin-top: -0.75rem;
+}
+
+.band {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.t-tabs {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.t-tab,
+.t-tabs-pill {
+  height: 2.75rem;
+}
+.t-tabs {
+  padding: 0.25rem;
+}
+.t-tabs-pill {
+  top: 0.25rem;
+}
+.t-tab {
+  min-height: 2.75rem;
+  padding-inline: 1rem;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.t-learn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 2.75rem;
+  color: var(--color-accent);
+  font-size: 1.0625rem;
+  text-decoration: none;
+}
+.t-learn-chevron svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.plain-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.t-tab:focus-visible,
+.t-learn:focus-visible,
+.apple-link:focus-visible,
+.apple-icon:focus-visible,
+.social:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 2px;
+}
+
+.menu-button {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.menu-button svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  display: block;
+}
+
+.menu-button .t-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1023px) {
+  .t-tabs.desktop-nav {
+    display: none;
+  }
+
+  .menu-button {
+    display: inline-flex;
+  }
+
+  body:has(.apple-menu[data-open='true']) [role='banner'] {
+    z-index: 40;
+    background: #ffffff;
+  }
+
+  body:has(.apple-menu[data-open='true'][data-page='2']) [role='banner'] a:has(.brand-logo) {
+    visibility: hidden;
+  }
+}
+
+.apple-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: #ffffff;
+  color: #1d1d1f;
+  padding-top: var(--_app-shell-header-height, 3.5rem);
+}
+
+.apple-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  background: transparent;
+  color: #1d1d1f;
+  cursor: pointer;
+}
+
+.apple-back {
+  position: absolute;
+  inset-inline-start: 0.5rem;
+  top: 50%;
+  margin-top: -1.375rem;
+  z-index: 2;
+}
+
+.apple-icon svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.apple-menu-pages {
+  height: calc(100dvh - var(--_app-shell-header-height, 3.5rem));
+}
+
+.apple-menu-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  padding: 1.25rem 1.75rem 3rem;
+  overflow: auto;
+}
+
+.apple-link {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.2rem 0;
+  border: 0;
+  background: transparent;
+  color: #1d1d1f;
+  font: inherit;
+  font-size: clamp(1.75rem, 5vw, 2.125rem);
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.15;
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.apple-link:focus-visible,
+.apple-icon:focus-visible {
+  outline-color: #1d1d1f;
+}
+
+.socials {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  background: var(--color-background-muted);
+  color: var(--color-text-primary);
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.social:hover {
+  background: var(--color-accent);
+  color: var(--color-background-surface);
+}
+
+.social svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  display: block;
+}
+
+.social[aria-label='Facebook'] svg {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.t-tabs.desktop-nav {
+  gap: 0.25rem;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+}
+
+.t-tabs.desktop-nav .t-tab {
+  height: auto;
+  min-height: 0;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.t-tabs.desktop-nav .t-tab:not([aria-selected='true']):hover,
+.t-tabs.desktop-nav .t-tab[aria-selected='true'] {
+  color: var(--color-text-primary);
+}
+
+.t-tabs.desktop-nav .t-tab[aria-selected='true'] {
+  font-weight: 600;
+}
+
+.t-tabs.desktop-nav .t-tabs-pill {
+  top: 0;
+  height: 100%;
+  background: var(--color-neutral);
+}
+
