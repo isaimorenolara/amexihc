@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://isaimorenolara.github.io/amexihc/</loc></url>
-  <url><loc>https://isaimorenolara.github.io/amexihc/mesa-directiva</loc></url>
-  <url><loc>https://isaimorenolara.github.io/amexihc/nuestras-iniciativas</loc></url>
-  <url><loc>https://isaimorenolara.github.io/amexihc/mexihc</loc></url>
-  <url><loc>https://isaimorenolara.github.io/amexihc/revista-aihc</loc></url>
+  <url><loc>https://amexihc.vercel.app/</loc></url>
+  <url><loc>https://amexihc.vercel.app/mesa-directiva</loc></url>
+  <url><loc>https://amexihc.vercel.app/nuestras-iniciativas</loc></url>
+  <url><loc>https://amexihc.vercel.app/mexihc</loc></url>
+  <url><loc>https://amexihc.vercel.app/revista-aihc</loc></url>
 </urlset>

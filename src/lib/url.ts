@@ -1,6 +1,6 @@
 const prefix = import.meta.env.BASE_URL.replace(/\/$/, '')
 
-export const siteOrigin = 'https://isaimorenolara.github.io/amexihc'
+export const siteOrigin = 'https://amexihc.vercel.app'
 
 export function toHref(path: string) {
   if (/^[a-z]+:/i.test(path)) return path

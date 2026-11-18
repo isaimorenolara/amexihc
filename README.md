@@ -30,18 +30,16 @@ npm run build
 npm run preview
 ```
 
-## GitHub Pages
+## Publicación
 
-El sitio se publica en [isaimorenolara.github.io/amexihc](https://isaimorenolara.github.io/amexihc/). El workflow de GitHub Actions construye con la base `/amexihc/` y copia `index.html` a `404.html` para que las rutas del cliente sigan funcionando al recargar.
-
-En local, `npm run dev` sigue sirviendo la raíz `/`.
+El sitio se publica en [amexihc.vercel.app](https://amexihc.vercel.app/). `vercel.json` reescribe las rutas del cliente a `index.html`.
 
 ## Estructura
 
 ```text
 amexihc-web
 ├── index.html
-├── .github/workflows/pages.yml
+├── vercel.json
 ├── public
 │   ├── robots.txt
 │   ├── sitemap.xml
