@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useSyncExternalStore } from 'react'
 import { Theme, type ThemeMode } from '@astryxdesign/core/theme'
 import { Heading } from '@astryxdesign/core/Heading'
 import { Section } from '@astryxdesign/core/Section'
@@ -66,9 +66,28 @@ function normalize(pathname: string) {
   return fromLocation(pathname)
 }
 
+const pathListeners = new Set<() => void>()
+
+function subscribeToPath(onStoreChange: () => void) {
+  window.addEventListener('popstate', onStoreChange)
+  pathListeners.add(onStoreChange)
+  return () => {
+    window.removeEventListener('popstate', onStoreChange)
+    pathListeners.delete(onStoreChange)
+  }
+}
+
+function getPathSnapshot() {
+  return normalize(window.location.pathname)
+}
+
+function notifyPath() {
+  pathListeners.forEach((listener) => listener())
+}
+
 export function App() {
   const [mode, setMode] = useState<ThemeMode>(readThemeMode)
-  const [path, setPath] = useState(() => normalize(window.location.pathname))
+  const path = useSyncExternalStore(subscribeToPath, getPathSnapshot)
   const match = pages.find((item) => item.path === path)
 
   useEffect(() => {
@@ -79,12 +98,6 @@ export function App() {
       /* private mode */
     }
   }, [mode])
-
-  useEffect(() => {
-    const sync = () => setPath(normalize(window.location.pathname))
-    window.addEventListener('popstate', sync)
-    return () => window.removeEventListener('popstate', sync)
-  }, [])
 
   useEffect(() => {
     const title = match?.title ?? 'AMexIHC'
@@ -106,7 +119,7 @@ export function App() {
 
   return (
     <Theme theme={appleTheme} mode={mode}>
-    <SiteFrame path={path} onNavigate={setPath} onTheme={setMode}>
+    <SiteFrame path={path} onNavigate={notifyPath} onTheme={setMode}>
       <div id="contenido">
           {Page ? (
             <Page />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useEffectEvent, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { LucideChevronLeft } from '../icons/icons'
 import { toHref } from '../../lib/url'
@@ -27,6 +27,9 @@ export function AppleMenu({
   onClose: () => void
 }) {
   const [page, setPage] = useState<'1' | '2'>('1')
+  const onEscape = useEffectEvent(() => {
+    onClose()
+  })
 
   useEffect(() => {
     if (!open) return
@@ -48,7 +51,7 @@ export function AppleMenu({
     body.style.right = '0'
     body.style.width = '100%'
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose()
+      if (event.key === 'Escape') onEscape()
     }
     window.addEventListener('keydown', onKey)
     return () => {
@@ -61,7 +64,7 @@ export function AppleMenu({
       window.scrollTo(0, scrollY)
       window.removeEventListener('keydown', onKey)
     }
-  }, [open, onClose])
+  }, [open])
 
   return (
     <div
