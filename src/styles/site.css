@@ -37,6 +37,13 @@
   --icon-swap-blur: 2px;
   --icon-swap-start-scale: 0.25;
   --icon-swap-ease: ease-in-out;
+
+  --toggle-dur: 350ms;
+  --toggle-travel: 14.66px;
+  --toggle-ov1: 1px;
+  --toggle-ov2: 0px;
+  --toggle-track: 0ms;
+  --toggle-ease: cubic-bezier(0.34, 1.35, 0.64, 1);
 }
 
 html,
@@ -47,6 +54,22 @@ body,
 
 html {
   overflow-x: clip;
+  scrollbar-width: thin;
+  scrollbar-color: light-dark(#c6c6c8, #636366) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: light-dark(#c6c6c8, #636366);
+  border: 2px solid transparent;
+  background-clip: content-box;
+  border-radius: 999px;
 }
 
 body {
@@ -59,9 +82,10 @@ body {
 .brand-logo {
   display: block;
   height: 1.75rem;
-  width: auto;
-  -webkit-user-drag: none;
-  user-select: none;
+  width: 7.5rem;
+  background: var(--color-accent);
+  -webkit-mask: url('/brand/logo.svg') center / contain no-repeat;
+  mask: url('/brand/logo.svg') center / contain no-repeat;
 }
 
 .measure {
@@ -138,13 +162,112 @@ body {
   padding: 0;
 }
 
+.nav-end {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--color-text-primary);
+}
+.theme-switch .t-icon {
+  display: inline-flex;
+  width: 1.125rem;
+  height: 1.125rem;
+}
+.theme-switch .t-icon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  display: block;
+}
+
+.t-toggle {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  width: 44.34px;
+  height: 22px;
+  padding: 4px;
+  border: none;
+  border-radius: 999px;
+  appearance: none;
+  box-shadow: none;
+  background-color: #d8d8d8;
+  cursor: pointer;
+}
+.t-toggle::before {
+  content: '';
+  position: absolute;
+  inset: -12px -8px;
+}
+.t-toggle-thumb {
+  display: block;
+  flex: none;
+  width: 21.68px;
+  height: 14px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.16);
+}
+.t-toggle[data-on='true'],
+.t-toggle[data-on='true']:hover {
+  background-color: var(--color-accent);
+  border: none;
+  box-shadow: none;
+}
+
 .t-tab:focus-visible,
 .t-learn:focus-visible,
+.t-toggle:focus-visible,
+.menu-button:focus-visible,
 .apple-link:focus-visible,
 .apple-icon:focus-visible,
 .social:focus-visible {
   outline: 2px solid var(--color-text-primary);
   outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .menu-button:hover,
+  .apple-icon:hover {
+    background: light-dark(rgb(0 0 0 / 0.06), rgb(255 255 255 / 0.12));
+  }
+  .apple-link:hover,
+  .t-learn:hover {
+    opacity: 0.72;
+  }
+  .social:hover {
+    background: var(--color-accent);
+    color: var(--color-background-surface);
+  }
+}
+
+.menu-button:active,
+.apple-icon:active,
+.apple-link:active,
+.t-learn:active,
+.t-tab:active,
+.social:active {
+  opacity: 0.6;
+}
+
+@media (hover: none) {
+  .t-tab:not([aria-selected='true']):hover {
+    color: var(--tabs-text-muted);
+  }
+  .t-tabs.desktop-nav .t-tab:not([aria-selected='true']):hover {
+    color: var(--color-text-secondary);
+  }
+  .t-learn:hover .t-learn-chevron,
+  .t-learn:hover .t-learn-arm {
+    transform: none;
+  }
 }
 
 .menu-button {
@@ -183,7 +306,7 @@ body {
 
   body:has(.apple-menu[data-open='true']) [role='banner'] {
     z-index: 40;
-    background: #ffffff;
+    background: var(--color-background-body);
   }
 
   body:has(.apple-menu[data-open='true'][data-page='2']) [role='banner'] a:has(.brand-logo) {
@@ -195,9 +318,10 @@ body {
   position: fixed;
   inset: 0;
   z-index: 30;
-  background: #ffffff;
-  color: #1d1d1f;
+  background: var(--color-background-body);
+  color: var(--color-text-primary);
   padding-top: var(--_app-shell-header-height, 3.5rem);
+  overscroll-behavior: none;
 }
 
 .apple-icon {
@@ -208,7 +332,7 @@ body {
   height: 2.75rem;
   border: 0;
   background: transparent;
-  color: #1d1d1f;
+  color: var(--color-text-primary);
   cursor: pointer;
 }
 
@@ -236,6 +360,7 @@ body {
   gap: 0.35rem;
   padding: 1.25rem 1.75rem 3rem;
   overflow: auto;
+  overscroll-behavior: contain;
 }
 
 .apple-link {
@@ -245,7 +370,7 @@ body {
   padding: 0.2rem 0;
   border: 0;
   background: transparent;
-  color: #1d1d1f;
+  color: var(--color-text-primary);
   font: inherit;
   font-size: clamp(1.75rem, 5vw, 2.125rem);
   font-weight: 600;
@@ -258,7 +383,7 @@ body {
 
 .apple-link:focus-visible,
 .apple-icon:focus-visible {
-  outline-color: #1d1d1f;
+  outline-color: var(--color-text-primary);
 }
 
 .socials {
@@ -278,11 +403,6 @@ body {
   transition:
     background-color 150ms ease,
     color 150ms ease;
-}
-
-.social:hover {
-  background: var(--color-accent);
-  color: var(--color-background-surface);
 }
 
 .social svg {

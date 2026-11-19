@@ -1,4 +1,5 @@
 import { useCallback, useState, type ReactNode } from 'react'
+import { useTheme, type ThemeMode } from '@astryxdesign/core/theme'
 import { AppShell } from '@astryxdesign/core/AppShell'
 import { Grid } from '@astryxdesign/core/Grid'
 import { Link } from '@astryxdesign/core/Link'
@@ -6,18 +7,53 @@ import { Section } from '@astryxdesign/core/Section'
 import { Stack } from '@astryxdesign/core/Stack'
 import { Text } from '@astryxdesign/core/Text'
 import { TopNav, TopNavHeading } from '@astryxdesign/core/TopNav'
-import { LucideFacebook, LucideMenu, LucideX, SimpleIconsX } from '../icons/icons'
+import { LucideFacebook, LucideMenu, LucideMoon, LucideSun, LucideX, SimpleIconsX } from '../icons/icons'
 import { AppleMenu } from './AppleMenu'
 import { NavTabs } from './NavTabs'
 import { toHref } from '../../lib/url'
 
+function ThemeToggle({ onTheme }: { onTheme: (mode: ThemeMode) => void }) {
+  const { mode } = useTheme()
+  const [ready, setReady] = useState(false)
+  const on = mode === 'dark'
+
+  return (
+    <span className="theme-switch">
+      <span className="t-icon-swap" data-state={on ? 'b' : 'a'} aria-hidden="true">
+        <span className="t-icon" data-icon="a">
+          <LucideSun />
+        </span>
+        <span className="t-icon" data-icon="b">
+          <LucideMoon />
+        </span>
+      </span>
+      <button
+        type="button"
+        className={ready ? 't-toggle is-init' : 't-toggle'}
+        role="switch"
+        aria-checked={on}
+        aria-label={on ? 'Usar tema claro' : 'Usar tema oscuro'}
+        data-on={on ? 'true' : 'false'}
+        onClick={() => {
+          setReady(true)
+          onTheme(on ? 'light' : 'dark')
+        }}
+      >
+        <span className="t-toggle-thumb" />
+      </button>
+    </span>
+  )
+}
+
 export function SiteFrame({
   path,
   onNavigate,
+  onTheme,
   children,
 }: {
   path: string
   onNavigate: (path: string) => void
+  onTheme: (mode: ThemeMode) => void
   children: ReactNode
 }) {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -35,22 +71,15 @@ export function SiteFrame({
           label="AMexIHC"
           heading={
             <TopNavHeading
-              logo={
-                <img
-                  className="brand-logo"
-                  src={`${import.meta.env.BASE_URL}brand/logo.svg`}
-                  alt=""
-                  width={120}
-                  height={28}
-                  draggable={false}
-                />
-              }
+              logo={<span className="brand-logo" aria-hidden="true" />}
               logoLabel="AMexIHC"
               headingHref={toHref('/')}
             />
           }
           centerContent={<NavTabs path={path} onNavigate={onNavigate} />}
           endContent={
+            <span className="nav-end">
+            <ThemeToggle onTheme={onTheme} />
             <button
               type="button"
               className="menu-button"
@@ -74,6 +103,7 @@ export function SiteFrame({
                 </span>
               </span>
             </button>
+            </span>
           }
         />
       }

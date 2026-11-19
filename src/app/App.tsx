@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Theme, type ThemeMode } from '@astryxdesign/core/theme'
 import { Heading } from '@astryxdesign/core/Heading'
 import { Section } from '@astryxdesign/core/Section'
 import { Stack } from '@astryxdesign/core/Stack'
@@ -10,7 +11,18 @@ import { HomePage } from '../pages/HomePage'
 import { InitiativesPage } from '../pages/InitiativesPage'
 import { JournalPage } from '../pages/JournalPage'
 import { MexihcPage } from '../pages/MexihcPage'
+import { appleTheme } from '../theme/apple'
 import { fromLocation, siteOrigin, toHref } from '../lib/url'
+
+function readThemeMode(): ThemeMode {
+  try {
+    const value = localStorage.getItem('theme')
+    if (value === 'light' || value === 'dark') return value
+  } catch {
+    /* private mode */
+  }
+  return 'system'
+}
 
 const pages = [
   {
@@ -55,8 +67,18 @@ function normalize(pathname: string) {
 }
 
 export function App() {
+  const [mode, setMode] = useState<ThemeMode>(readThemeMode)
   const [path, setPath] = useState(() => normalize(window.location.pathname))
   const match = pages.find((item) => item.path === path)
+
+  useEffect(() => {
+    try {
+      if (mode === 'system') localStorage.removeItem('theme')
+      else localStorage.setItem('theme', mode)
+    } catch {
+      /* private mode */
+    }
+  }, [mode])
 
   useEffect(() => {
     const sync = () => setPath(normalize(window.location.pathname))
@@ -83,7 +105,8 @@ export function App() {
   const Page = match?.page
 
   return (
-    <SiteFrame path={path} onNavigate={setPath}>
+    <Theme theme={appleTheme} mode={mode}>
+    <SiteFrame path={path} onNavigate={setPath} onTheme={setMode}>
       <div id="contenido">
           {Page ? (
             <Page />
@@ -98,5 +121,6 @@ export function App() {
           )}
         </div>
       </SiteFrame>
+    </Theme>
   )
 }
